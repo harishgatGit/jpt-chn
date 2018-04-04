@@ -1,0 +1,41 @@
+GC Options
+File logging:
+-Xloggc:gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps
+
+Log Rotation:
+java -Xloggc:gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=128K
+
+Take Thread Dump using jstack
+jstack <process PID> > <file Path>
+jstack 11598 > c:\temp\tdump1.txt
+
+Serial GC 	-XX:+UseSerialGC
+
+Parallel GC 	-XX:+UseParallelGC
+				-XX:ParallelGCThreads=value
+
+Parallel Compacting GC 	-XX:+UseParallelOldGC
+
+CMS GC 	-XX:+UseConcMarkSweepGC
+		-XX:+UseParNewGC
+		-XX:+CMSParallelRemarkEnabled
+		-XX:CMSInitiatingOccupancyFraction=value
+		-XX:+UseCMSInitiatingOccupancyOnly
+		
+G1 		-XX:+UnlockExperimentalVMOptions
+		-XX:+UseG1GC
+
+
+-Xms200M -Xmx200M -verbose:gc -Xloggc:c:\temp\gclog.log -XX:+UseParallelGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps
+
+-XX:+HeapDumpOnOutOfMemoryError
+
+java -jar SPECJVM2008.jar -ikv compiler.compiler
+
+-Xms50m -Xmx50m -XX:+UseParNewGC -XX:+HeapDumpOnOutOfMemoryError
+
+jvisualvm -J-XX:+PerfBypassFileSystemCheck
+
+jmap -dump:format=b,file=c:\temp\ledump.hprof <pid>
+
+
